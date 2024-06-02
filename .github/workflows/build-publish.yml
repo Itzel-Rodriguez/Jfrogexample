@@ -26,6 +26,7 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt --no-cache-dir --force-reinstall
+          pip install setuptools wheel
 
       - name: Package the project
         run: python setup.py sdist bdist_wheel
