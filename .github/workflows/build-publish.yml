@@ -11,12 +11,14 @@ jobs:
 
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v3
+        with:
+          version: 2.52.9
         env:  
           JF_URL: ${{ secrets.JF_URL }}
           JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
 
       - name: Set CLI Config
-        run: jfrog rt pip-config --global=true --repo-resolve=repo-pypi
+        run: jfrog pipc --global=true --repo-resolve=repo-pypi
 
       - name: Install Python
         uses: actions/setup-python@v2
@@ -24,9 +26,10 @@ jobs:
           python-version: '3.x'
 
       - name: Install Dependencies
-        run: |
-          pip install -r requirements.txt --no-cache-dir --force-reinstall
-          pip install setuptools wheel
+        run: jfrog rt pip-install -r requirements.txt --no-cache-dir --force-reinstall
+
+      - name: Install Build Tools
+        run: pip install setuptools wheel
 
       - name: Package the project
         run: python setup.py sdist bdist_wheel
