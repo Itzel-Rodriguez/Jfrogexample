@@ -19,7 +19,9 @@ jobs:
          run: jf pip-config --global=true --repo-resolve=repo-pypi
            
        - name: Install Deps
-         run: jf pip install .
+         # run: jf pip install .
+         run: |
+          pip install -r requirements.txt --no-cache-dir --force-reinstall
            
        - name: Package the project
          run: python setup.py sdist bdist_wheel
