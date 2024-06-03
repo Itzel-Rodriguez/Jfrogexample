@@ -1,3 +1,4 @@
 PyYAML>3.11
 nltk
 pandas
+pywikibot
